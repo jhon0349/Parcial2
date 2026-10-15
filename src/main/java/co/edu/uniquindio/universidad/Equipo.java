@@ -1,6 +1,7 @@
 package co.edu.uniquindio.universidad;
 
 public class Equipo {
+
     protected String codigo;
     protected String marca;
     protected String modelo;
@@ -22,6 +23,5 @@ public class Equipo {
     public String getCodigo() { return codigo; }
     public String getMarca() { return marca; }
     public String getModelo() { return modelo; }
-
 
 }
