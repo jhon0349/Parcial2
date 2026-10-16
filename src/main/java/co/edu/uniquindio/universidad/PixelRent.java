@@ -58,4 +58,5 @@ public class PixelRent {
     }
 
     public Sede buscarSedePorCodigo(String codigo) {
-        return sedes.stream().filter(s -> s.getCodigo().equals(codigo
+        return sedes.stream().filter(s -> s.getCodigo().equals(codigo)).findFirst().orElse(null);
+    }
