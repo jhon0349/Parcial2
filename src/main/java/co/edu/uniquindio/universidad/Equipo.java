@@ -1,6 +1,6 @@
 package co.edu.uniquindio.universidad;
 
-public class Equipo {
+public abstract class Equipo {
 
     protected String codigo;
     protected String marca;
@@ -14,6 +14,7 @@ public class Equipo {
         this.condicion = condicion;
     }
 
+    // Método abstracto: cada subclase lo implementa
     public abstract double calcularCosto(int horas);
 
     public boolean estaDisponible() {
@@ -23,5 +24,4 @@ public class Equipo {
     public String getCodigo() { return codigo; }
     public String getMarca() { return marca; }
     public String getModelo() { return modelo; }
-
 }
