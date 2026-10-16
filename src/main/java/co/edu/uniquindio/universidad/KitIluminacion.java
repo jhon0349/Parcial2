@@ -16,4 +16,5 @@ public class KitIluminacion extends Equipo {
         if (controlInalambrico) costo += 12000;
         return costo;
     }
+
 }
