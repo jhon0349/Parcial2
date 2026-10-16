@@ -7,9 +7,10 @@ public class PixelRent {
     private List<Cliente> clientes = new ArrayList<>();
     private List<Operador> operadores = new ArrayList<>();
     private List<Equipo> equipos = new ArrayList<>();
-    private List<Reserva> reservas = new ArrayList<>();
+    List<Reserva> reservas = new ArrayList<>(); // acceso package para Main
     private List<Sede> sedes = new ArrayList<>();
 
+    // Registro de entidades
     public boolean registrarSede(Sede s) {
         if (buscarSedePorCodigo(s.getCodigo()) != null) return false;
         sedes.add(s);
@@ -60,3 +61,38 @@ public class PixelRent {
     public Sede buscarSedePorCodigo(String codigo) {
         return sedes.stream().filter(s -> s.getCodigo().equals(codigo)).findFirst().orElse(null);
     }
+
+    // Consultas administrativas
+    public List<Equipo> equiposDisponibles(String fecha, Turno turno) {
+        List<Equipo> disponibles = new ArrayList<>();
+        for (Equipo e : equipos) {
+            boolean ocupado = false;
+            for (Reserva r : reservas) {
+                if (r.getEstado() == EstadoReserva.CONFIRMADA &&
+                        r.getFecha().equals(fecha) &&
+                        r.getTurno() == turno) {
+                    if (r.equipos.contains(e)) ocupado = true;
+                }
+            }
+            if (!ocupado && e.estaDisponible()) disponibles.add(e);
+        }
+        return disponibles;
+    }
+
+    public List<Reserva> reservasPorCliente(String idCliente) {
+        List<Reserva> resultado = new ArrayList<>();
+        for (Reserva r : reservas) {
+            if (r.getEstado() == EstadoReserva.CONFIRMADA &&
+                    r.getCliente().getIdentificacion().equals(idCliente)) {
+                resultado.add(r);
+            }
+        }
+        return resultado;
+    }
+
+    public double valorReserva(String codigoReserva) {
+        Reserva r = buscarReservaPorCodigo(codigoReserva);
+        return (r != null) ? r.calcularValor() : 0;
+    }
+}
+
